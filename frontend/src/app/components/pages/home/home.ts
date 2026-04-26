@@ -5,10 +5,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RatingModule } from '@khajegan/ng-starrating';
 import { CurrencyPipe } from '@angular/common';
 import { Search } from '../../partials/search/search';
+import { Tags } from '../../partials/tags/tags';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, RatingModule, CurrencyPipe, Search],
+  imports: [RouterLink, RatingModule, CurrencyPipe, Search, Tags],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -19,6 +20,9 @@ export class Home {
     activatedRoute.params.subscribe((params) => {
       if (params.searchTerm) {
         this.foods = this.foodService.getAllFoodsBySearchTerm(params.searchTerm);
+
+      } else if (params.tag) {
+        this.foods = this.foodService.getAllFoodsByTag(params.tag);
 
       } else {
         this.foods = foodService.getAll();
